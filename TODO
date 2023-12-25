@@ -1,0 +1,12 @@
+
+Todo:
+  Remove all other paging behavior other than offset/size
+  Queries are forwarded to the database layer
+  In the database layer, DB host must be a system property
+  ☐ Paging must be supported by the database layer
+  Docker file for the database
+  Change all readByPredicate Methoden in InMemoryStorage to protected
+  ☐ All sorting criteria must be forward to the database layer
+  ☐ Populate database on start
+  Change GenericWebClient: does not need all headers, but all methods should receive a link (with the media type)
+
