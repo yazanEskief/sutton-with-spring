@@ -34,7 +34,7 @@ public class DispatcherController extends AbstractSpringService {
                 .execute();
     }
 
-    @GetMapping(value = "/filldatabase", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/resetdatabase", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> resetDatabase() {
         System.out.println("RESET DATABASE");
 
@@ -43,7 +43,7 @@ public class DispatcherController extends AbstractSpringService {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/resetdatabase", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value = "/filldatabase", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> fillDatabase() {
         System.out.println("FILL DATABASE");
 

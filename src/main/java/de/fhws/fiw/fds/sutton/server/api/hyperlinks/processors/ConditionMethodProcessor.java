@@ -1,4 +1,6 @@
-package de.fhws.fiw.fds.sutton.server.api.hyperlinks;
+package de.fhws.fiw.fds.sutton.server.api.hyperlinks.processors;
+
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.ConditionMethod;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

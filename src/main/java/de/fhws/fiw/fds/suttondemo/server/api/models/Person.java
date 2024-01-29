@@ -17,6 +17,7 @@ package de.fhws.fiw.fds.suttondemo.server.api.models;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.*;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SuttonLink;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -34,18 +35,14 @@ public class Person extends AbstractModel {
     private String emailAddress;
 
     @SuttonLink(
-            style = SuttonLink.Style.ABSOLUTE,
             value = "persons/${id}",
-            rel = "self",
-            type = SuttonLink.MediaType.APPLICATION_JSON
+            rel = "self"
     )
     private transient Link selfLink;
 
     @SuttonLink(
-            style = SuttonLink.Style.ABSOLUTE,
             value = "persons/${id}/locations",
-            rel = "getLocationsOfPerson",
-            type = SuttonLink.MediaType.APPLICATION_JSON
+            rel = "getLocationsOfPerson"
     )
     private transient Link location;
 

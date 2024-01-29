@@ -16,7 +16,8 @@
 
 package de.fhws.fiw.fds.sutton.server.api.states.get;
 
-import de.fhws.fiw.fds.sutton.server.api.hyperlinks.SuttonLinkProcessor;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.processors.SuttonAnnotationsProcessor;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.processors.SuttonLinkProcessor;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.queries.PagingContext;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.Status;
@@ -118,10 +119,10 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
      * Extending classes should use this method to set the body of the response.
      */
     protected void defineHttpResponseBody() {
-        SuttonLinkProcessor suttonLinkProcessor = new SuttonLinkProcessor(this.uriInfo);
+        SuttonAnnotationsProcessor suttonAnnotationsProcessor = new SuttonAnnotationsProcessor(this.uriInfo);
 
         Collection<T> entityCollection = this.result.getResult();
-        entityCollection.forEach(suttonLinkProcessor::processEntity);
+        entityCollection.forEach(suttonAnnotationsProcessor::processSuttonAnnotations);
         this.suttonResponse.entity(entityCollection);
     }
 

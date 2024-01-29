@@ -36,7 +36,6 @@ public class LocationController extends AbstractSpringService {
 
     @GetMapping(value = "/{locationId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Location> getSingleLocation(@PathVariable final long locationId) {
-        System.out.println(this.httpServletRequest.getContextPath());
         return new GetSingleLocation.Builder<ResponseEntity<Location>>()
                 .setRequestedId(locationId)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))

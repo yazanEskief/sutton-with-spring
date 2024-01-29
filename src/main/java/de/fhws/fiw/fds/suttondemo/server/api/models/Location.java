@@ -3,6 +3,10 @@ package de.fhws.fiw.fds.suttondemo.server.api.models;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.*;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.Condition;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SecondarySelfLink;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SelfLink;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations.SuttonLink;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
@@ -21,22 +25,10 @@ public class Location extends AbstractModel {
 
     private LocalDate visitedOn;
 
-    @SuttonLink(
-            style = SuttonLink.Style.ABSOLUTE,
-            value = "/persons/${primaryId}/locations/${id}",
-            rel = "self",
-            type = SuttonLink.MediaType.APPLICATION_JSON,
-            condition = @Condition(field = "primaryId", operation = Condition.Operation.NOT_EQUAL, value = "0")
-    )
+    @SecondarySelfLink(PrimaryResourceName = "persons")
     private transient Link selfLinkOnSecond;
 
-    @SuttonLink(
-            style = SuttonLink.Style.ABSOLUTE,
-            value = "/locations/${id}",
-            rel = "self",
-            type = SuttonLink.MediaType.APPLICATION_JSON,
-            condition = @Condition(field = "primaryId", operation = Condition.Operation.EQUAL, value = "0")
-    )
+    @SelfLink
     private transient Link selfLinkPrimary;
 
     public Location() {

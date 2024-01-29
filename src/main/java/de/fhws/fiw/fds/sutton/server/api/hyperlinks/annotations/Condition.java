@@ -1,4 +1,4 @@
-package de.fhws.fiw.fds.sutton.server.api.hyperlinks;
+package de.fhws.fiw.fds.sutton.server.api.hyperlinks.annotations;
 
 import jakarta.annotation.Nullable;
 
