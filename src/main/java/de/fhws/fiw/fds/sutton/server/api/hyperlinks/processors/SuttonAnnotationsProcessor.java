@@ -16,16 +16,13 @@ import java.util.function.Supplier;
 
 public class SuttonAnnotationsProcessor {
 
-    private SuttonUriInfo uriInfo;
-
     private final Map<String, SuttonAnnotation> suttonAnnotations;
 
     public SuttonAnnotationsProcessor(SuttonUriInfo uriInfo) {
-        this.uriInfo = uriInfo;
         this.suttonAnnotations = new HashMap<>();
-        suttonAnnotations.put(SuttonLink.class.getSimpleName(), new SuttonLinkProcessor(this.uriInfo));
-        suttonAnnotations.put(SelfLink.class.getSimpleName(), new SelfLinkProcessor(this.uriInfo));
-        suttonAnnotations.put(SecondarySelfLink.class.getSimpleName(), new SecondarySelfLinkProcessor(this.uriInfo));
+        suttonAnnotations.put(SuttonLink.class.getSimpleName(), new SuttonLinkProcessor(uriInfo));
+        suttonAnnotations.put(SelfLink.class.getSimpleName(), new SelfLinkProcessor(uriInfo));
+        suttonAnnotations.put(SecondarySelfLink.class.getSimpleName(), new SecondarySelfLinkProcessor(uriInfo));
     }
 
     public void addAnnotation(String annotationName, Supplier<SuttonAnnotation> callBack) {

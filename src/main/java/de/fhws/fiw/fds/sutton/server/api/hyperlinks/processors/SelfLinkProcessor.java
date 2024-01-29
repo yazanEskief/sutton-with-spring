@@ -14,11 +14,11 @@ public class SelfLinkProcessor extends SuttonAnnotation {
     }
 
     @Override
-    public boolean isAnnotationPresent(final Field field) {
+    protected boolean isAnnotationPresent(final Field field) {
         return field.isAnnotationPresent(SelfLink.class);
     }
     @Override
-    public void processField(final Field field, final AbstractModel model) {
+    protected void processField(final Field field, final AbstractModel model) {
         field.setAccessible(true);
 
         if(hasPrimaryResource(model)) {

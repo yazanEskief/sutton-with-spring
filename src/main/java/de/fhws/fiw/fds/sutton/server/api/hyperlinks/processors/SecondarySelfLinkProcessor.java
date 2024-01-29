@@ -14,7 +14,7 @@ public class SecondarySelfLinkProcessor extends SuttonAnnotation {
     }
 
     @Override
-    public void processField(Field field, final AbstractModel model) {
+    protected void processField(Field field, final AbstractModel model) {
         field.setAccessible(true);
 
         SecondarySelfLink secondarySelfLink = field.getAnnotation(SecondarySelfLink.class);
@@ -59,7 +59,7 @@ public class SecondarySelfLinkProcessor extends SuttonAnnotation {
     }
 
     @Override
-    public boolean isAnnotationPresent(Field field) {
+    protected boolean isAnnotationPresent(Field field) {
         return field.isAnnotationPresent(SecondarySelfLink.class);
     }
 

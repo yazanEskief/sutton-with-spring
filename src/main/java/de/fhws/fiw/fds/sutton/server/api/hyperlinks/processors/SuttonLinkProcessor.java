@@ -22,12 +22,12 @@ public class SuttonLinkProcessor extends SuttonAnnotation {
     }
 
     @Override
-    public boolean isAnnotationPresent(Field field) {
+    protected boolean isAnnotationPresent(Field field) {
         return field.isAnnotationPresent(SuttonLink.class);
     }
 
     @Override
-    public void processField(final Field field, final AbstractModel model) {
+    protected void processField(final Field field, final AbstractModel model) {
         field.setAccessible(true);
 
         SuttonLink suttonLink = field.getAnnotation(SuttonLink.class);

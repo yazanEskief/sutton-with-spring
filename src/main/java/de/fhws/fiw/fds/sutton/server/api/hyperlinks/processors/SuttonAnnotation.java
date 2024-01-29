@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 
 public abstract class SuttonAnnotation {
 
-    private SuttonUriInfo uriInfo;
+    private final SuttonUriInfo uriInfo;
 
     public SuttonAnnotation(SuttonUriInfo uriInfo) {
         this.uriInfo = uriInfo;
@@ -22,9 +22,9 @@ public abstract class SuttonAnnotation {
         processField(field, model);
     }
 
-    public abstract void processField(final Field field, final AbstractModel model);
+    protected abstract void processField(final Field field, final AbstractModel model);
 
-    public abstract boolean isAnnotationPresent(final Field field);
+    protected abstract boolean isAnnotationPresent(final Field field);
 
     protected String createHref(final Style injectionStyle, final String href) {
         if (injectionStyle.equals(Style.ABSOLUTE)) {

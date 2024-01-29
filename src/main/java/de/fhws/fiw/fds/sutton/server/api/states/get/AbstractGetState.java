@@ -18,7 +18,6 @@ package de.fhws.fiw.fds.sutton.server.api.states.get;
 
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.Hyperlinks;
 import de.fhws.fiw.fds.sutton.server.api.hyperlinks.processors.SuttonAnnotationsProcessor;
-import de.fhws.fiw.fds.sutton.server.api.hyperlinks.processors.SuttonLinkProcessor;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.Status;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
@@ -44,6 +43,8 @@ public abstract class AbstractGetState<T extends AbstractModel, R> extends Abstr
      * The result {@link SingleModelResult} of searching the model in the database
      */
     protected SingleModelResult<T> requestedModel;
+
+    protected SuttonAnnotationsProcessor suttonAnnotationsProcessor = new SuttonAnnotationsProcessor(this.uriInfo);
 
     public AbstractGetState(final AbstractGetStateBuilder<R, T> builder) {
         super(builder);
@@ -106,10 +107,13 @@ public abstract class AbstractGetState<T extends AbstractModel, R> extends Abstr
     }
 
     protected void defineHttpResponseBody() {
-        SuttonAnnotationsProcessor suttonAnnotationsProcessor = new SuttonAnnotationsProcessor(this.uriInfo);
-
+        addAnnotations();
         suttonAnnotationsProcessor.processSuttonAnnotations(this.requestedModel.getResult());
         this.suttonResponse.entity(this.requestedModel.getResult());
+    }
+
+    protected void addAnnotations() {
+
     }
 
     /**
