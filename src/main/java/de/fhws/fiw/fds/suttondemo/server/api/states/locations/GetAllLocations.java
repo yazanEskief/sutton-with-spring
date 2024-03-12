@@ -11,7 +11,7 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 
 import java.util.Collection;
 
-public class GetAllLocations<R> extends AbstractGetCollectionState<Location, R> {
+public class GetAllLocations<R> extends AbstractGetCollectionState<R, Location> {
     public GetAllLocations(final Builder<R> builder) {
         super(builder);
     }
@@ -26,14 +26,14 @@ public class GetAllLocations<R> extends AbstractGetCollectionState<Location, R> 
         addLink(LocationUri.REL_PATH, LocationRelTypes.CREATE_LOCATION, getAcceptRequestHeader());
     }
 
-    public static class AllLocations<R> extends AbstractQuery<Location, R> {
+    public static class AllLocations<R> extends AbstractQuery<R, Location> {
         @Override
         protected CollectionModelResult<Location> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
             return DaoFactory.getInstance().getLocationDao().readAll();
         }
     }
 
-    public static class Builder<R> extends AbstractGetCollectionStateBuilder<Location, R> {
+    public static class Builder<R> extends AbstractGetCollectionStateBuilder<R, Location> {
         @Override
         public AbstractState<R, Collection<Location>> build() {
             return new GetAllLocations<>(this);

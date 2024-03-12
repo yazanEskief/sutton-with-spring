@@ -1,6 +1,7 @@
 package de.fhws.fiw.fds.sutton.server.api.services;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public abstract class AbstractSpringService {

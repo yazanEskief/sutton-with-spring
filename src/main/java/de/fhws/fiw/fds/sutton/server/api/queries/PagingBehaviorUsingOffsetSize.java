@@ -27,12 +27,14 @@ import java.util.Map;
 /**
  * The PagingBehaviorUsingOffsetSize class is an instance of {@link PagingBehavior} and describes a paging behavior
  * in which the collection of the full results is divided into subsets (pages). The client can specify the size of the
- * page and the index in the collection of the full results, from which the entries in the page should start
+ * page and the index in the collection of the full results, from which the entries in the page should start.
  *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  * @see PagingBehaviorUsingPage
  * @see OnePageWithAllResults
  */
-public class PagingBehaviorUsingOffsetSize<T extends AbstractModel, R> extends PagingBehavior<T, R> {
+public class PagingBehaviorUsingOffsetSize<R, T extends AbstractModel> extends PagingBehavior<R, T> {
 
     /**
      * The default page size {@link Integer} to use when no size is provided

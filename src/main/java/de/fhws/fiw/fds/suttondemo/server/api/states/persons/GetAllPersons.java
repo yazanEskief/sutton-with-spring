@@ -23,7 +23,7 @@ import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByFirstAndLastName;
 
 import java.util.Collection;
 
-public class GetAllPersons<R> extends AbstractGetCollectionState<Person, R> {
+public class GetAllPersons<R> extends AbstractGetCollectionState<R, Person> {
 
     public GetAllPersons(final Builder<R> builder) {
         super(builder);
@@ -46,7 +46,7 @@ public class GetAllPersons<R> extends AbstractGetCollectionState<Person, R> {
         addLink(PersonUri.REL_PATH, PersonRelTypes.CREATE_PERSON, getAcceptRequestHeader());
     }
 
-    public static class Builder<R> extends AbstractGetCollectionStateBuilder<Person, R> {
+    public static class Builder<R> extends AbstractGetCollectionStateBuilder<R, Person> {
 
         @Override
         public AbstractState<R, Collection<Person>> build() {

@@ -1,5 +1,6 @@
 package de.fhws.fiw.fds.sutton.server.api.states.put;
 
+import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 
 /**
@@ -8,26 +9,28 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
  * can be used also to relate an existing sub-resource to an existing primary resource.</p>
  *
  * <p>Each extending state class has to define a builder class, which must extend
- * * {@link AbstractPutRelationState.AbstractPutRelationStateBuilder}</p>
+ * {@link AbstractPutRelationState.AbstractPutRelationStateBuilder}</p>
  *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity sent in the HTTP request to perform an update process.
  * @see AbstractPutState
  */
-public abstract class AbstractPutRelationState<T extends AbstractModel, R> extends AbstractPutState<T, R> {
+public abstract class AbstractPutRelationState<R, T extends AbstractModel> extends AbstractPutState<R, T> {
     /**
      * The id {@link Long} of the primary resource
      */
     protected long primaryId;
 
-    public AbstractPutRelationState(final AbstractPutRelationStateBuilder<T, R> builder) {
+    public AbstractPutRelationState(final AbstractPutRelationStateBuilder<R, T> builder) {
         super(builder);
         this.primaryId = builder.parentId;
     }
 
-    public static abstract class AbstractPutRelationStateBuilder<T extends AbstractModel, R>
-            extends AbstractPutStateBuilder<T, R> {
+    public static abstract class AbstractPutRelationStateBuilder<R, T extends AbstractModel>
+            extends AbstractPutStateBuilder<R, T> {
         protected long parentId;
 
-        public AbstractPutRelationStateBuilder<T, R> setParentId(final long parentId) {
+        public AbstractPutRelationStateBuilder<R, T> setParentId(final long parentId) {
             this.parentId = parentId;
             return this;
         }

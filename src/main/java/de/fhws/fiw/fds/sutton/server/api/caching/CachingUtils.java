@@ -33,7 +33,8 @@ public class CachingUtils {
      */
     public static SuttonCacheController create2SecondsPublicCaching() {
         final SuttonCacheController cacheControl = new SuttonCacheController();
-        cacheControl.setPrivate(false).setMaxAge(2);
+        cacheControl.setPrivate(false);
+        cacheControl.setMaxAge(2);
 
         return cacheControl;
     }
@@ -46,7 +47,8 @@ public class CachingUtils {
      */
     public static SuttonCacheController create30SecondsPublicCaching() {
         final SuttonCacheController cacheControl = new SuttonCacheController();
-        cacheControl.setPrivate(false).setMaxAge(30);
+        cacheControl.setPrivate(false);
+        cacheControl.setMaxAge(30);
 
         return cacheControl;
     }
@@ -59,7 +61,8 @@ public class CachingUtils {
      */
     public static SuttonCacheController create60SecondsPublicCaching() {
         final SuttonCacheController cacheControl = new SuttonCacheController();
-        cacheControl.setPrivate(false).setMaxAge(60);
+        cacheControl.setPrivate(false);
+        cacheControl.setMaxAge(60);
 
         return cacheControl;
     }
@@ -72,7 +75,8 @@ public class CachingUtils {
      */
     public static SuttonCacheController create30SecondsPrivateCaching() {
         final SuttonCacheController cacheControl = new SuttonCacheController();
-        cacheControl.setPrivate(true).setMaxAge(30);
+        cacheControl.setPrivate(true);
+        cacheControl.setMaxAge(30);
 
         return cacheControl;
     }
@@ -85,7 +89,8 @@ public class CachingUtils {
      */
     public static SuttonCacheController createNoCacheNoStoreCaching() {
         final SuttonCacheController cacheControl = new SuttonCacheController();
-        cacheControl.setNoCache(true).setNoStore(true);
+        cacheControl.setNoCache(true);
+        cacheControl.setNoStore(true);
 
         return cacheControl;
     }

@@ -9,7 +9,7 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 
-public class GetSingleLocationOfPerson<R> extends AbstractGetRelationState<Location, R> {
+public class GetSingleLocationOfPerson<R> extends AbstractGetRelationState<R, Location> {
 
     public GetSingleLocationOfPerson( final Builder<R> builder )
     {
@@ -23,8 +23,7 @@ public class GetSingleLocationOfPerson<R> extends AbstractGetRelationState<Locat
 
     @Override
     protected boolean clientKnowsCurrentModelState(AbstractModel modelFromDatabase) {
-        final String modelEtag = EtagGenerator.createEtag(modelFromDatabase);
-        return this.suttonRequest.clientKnowsCurrentModel(modelEtag);
+        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
     }
 
     @Override

@@ -9,7 +9,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.security.AuthenticationProvider;
 
-public class GetAllUsers<R> extends AbstractGetCollectionState<User, R> {
+public class GetAllUsers<R> extends AbstractGetCollectionState<R, User> {
 
     public GetAllUsers(Builder<R> builder) {
         super(builder);
@@ -26,7 +26,7 @@ public class GetAllUsers<R> extends AbstractGetCollectionState<User, R> {
         addLink(UserUri.REL_PATH, UserRelTypes.CREATE_USER, getAcceptRequestHeader());
     }
 
-    public static class AllUsers<R> extends AbstractQuery<User, R> {
+    public static class AllUsers<R> extends AbstractQuery<R, User> {
 
         @Override
         protected CollectionModelResult<User> doExecuteQuery(SearchParameter searchParameter) throws DatabaseException {
@@ -34,7 +34,7 @@ public class GetAllUsers<R> extends AbstractGetCollectionState<User, R> {
         }
     }
 
-    public static class Builder<R> extends AbstractGetCollectionStateBuilder<User, R> {
+    public static class Builder<R> extends AbstractGetCollectionStateBuilder<R, User> {
 
         @Override
         public GetAllUsers<R> build() {

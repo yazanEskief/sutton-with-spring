@@ -7,11 +7,13 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
  * a single sub-resource related to a specific primary resource from the database.</p>
  *
  * <p>Each extending state class has to define a builder class, which must extend
- * * {@link AbstractGetRelationState.AbstractGetRelationStateBuilder}</p>
+ * {@link AbstractGetRelationState.AbstractGetRelationStateBuilder}</p>
  *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  * @see AbstractGetState
  */
-public abstract class AbstractGetRelationState<T extends AbstractModel, R> extends AbstractGetState<T, R> {
+public abstract class AbstractGetRelationState<R, T extends AbstractModel> extends AbstractGetState<R, T> {
 
     /**
      * id {@link Long} of the primary resource

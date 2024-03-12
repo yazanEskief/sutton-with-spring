@@ -25,9 +25,12 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 
 /**
- * The PagingBehavior provides the basic requirements to create different paging mechanisms
+ * The PagingBehavior provides the basic requirements to create different paging mechanisms.
+ *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  */
-public abstract class PagingBehavior<T extends AbstractModel, R> {
+public abstract class PagingBehavior<R, T extends AbstractModel> {
 
     /**
      * Returns the offset, where the result's page should start

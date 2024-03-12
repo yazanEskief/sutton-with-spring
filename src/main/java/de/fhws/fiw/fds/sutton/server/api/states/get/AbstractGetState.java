@@ -31,8 +31,10 @@ import java.net.URI;
  *
  * <p>Each extending state class has to define a builder class, which must extend
  * {@link AbstractGetState.AbstractGetStateBuilder}.</p>
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  */
-public abstract class AbstractGetState<T extends AbstractModel, R> extends AbstractState<R, T> {
+public abstract class AbstractGetState<R, T extends AbstractModel> extends AbstractState<R, T> {
 
     /**
      * id {@link Long} of the model to be searched in the database
@@ -54,6 +56,8 @@ public abstract class AbstractGetState<T extends AbstractModel, R> extends Abstr
     @Override
     protected R buildInternal() {
         configureState();
+
+        addAnnotations();
 
         authorizeRequest();
 
@@ -107,7 +111,6 @@ public abstract class AbstractGetState<T extends AbstractModel, R> extends Abstr
     }
 
     protected void defineHttpResponseBody() {
-        addAnnotations();
         suttonAnnotationsProcessor.processSuttonAnnotations(this.requestedModel.getResult());
         this.suttonResponse.entity(this.requestedModel.getResult());
     }

@@ -13,10 +13,12 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
  * in which the collection of the full results is divided into pages. The page has a fixed size and the client can
  * request a certain page from the server.
  *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  * @see PagingBehaviorUsingOffsetSize
  * @see OnePageWithAllResults
  */
-public class PagingBehaviorUsingPage<T extends AbstractModel, R> extends PagingBehavior<T, R> {
+public class PagingBehaviorUsingPage<R, T extends AbstractModel> extends PagingBehavior<R, T> {
 
     /**
      * Default name {@link String} of the page query parameter
@@ -113,17 +115,8 @@ public class PagingBehaviorUsingPage<T extends AbstractModel, R> extends PagingB
         this.pageNumber = Math.max(1, pageNumber);
     }
 
-//    private UriBuilder createUriBuilder(final UriInfo uriInfo) {
-//        return uriInfo.getRequestUriBuilder()
-//                .replaceQueryParam(getPageParamName(), getQueryParamPageAsTemplate());
-//    }
-
     private String getPageParamName() {
         return this.pageQueryParamName;
     }
-
-//    private final String getQueryParamPageAsTemplate() {
-//        return "{" + getPageParamName() + "}";
-//    }
 
 }

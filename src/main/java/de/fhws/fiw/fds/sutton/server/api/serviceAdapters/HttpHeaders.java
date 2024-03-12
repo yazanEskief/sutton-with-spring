@@ -1,5 +1,8 @@
 package de.fhws.fiw.fds.sutton.server.api.serviceAdapters;
 
+/**
+ * An interface that contains the different HTTP headers.
+ */
 public interface HttpHeaders {
 
     /**

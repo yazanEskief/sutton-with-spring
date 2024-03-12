@@ -1,5 +1,8 @@
 package de.fhws.fiw.fds.sutton.server.api.serviceAdapters.cachingAdapter;
 
+/**
+ * An abstraction for the value of a HTTP Cache-Control response header.
+ * */
 public class SuttonCacheController {
 
     private boolean privateFlag;
@@ -16,6 +19,19 @@ public class SuttonCacheController {
 
     private int maxAge = -1;
 
+    /**
+     * Create a new instance of CacheControl. The new instance will have the
+     * following default settings:
+     *
+     * <ul>
+     * <li>private = false</li>
+     * <li>noCache = false</li>
+     * <li>noStore = false</li>
+     * <li>noTransform = true</li>
+     * <li>mustRevalidate = false</li>
+     * <li>proxyRevalidate = false</li>
+     * </ul>
+     */
     public SuttonCacheController() {
         privateFlag = false;
         noCacheFlag = false;
@@ -53,38 +69,31 @@ public class SuttonCacheController {
         return maxAge;
     }
 
-    public SuttonCacheController setPrivate(final boolean flag) {
+    public void setPrivate(final boolean flag) {
         privateFlag = flag;
-        return this;
     }
 
-    public SuttonCacheController setNoCache(final boolean flag) {
+    public void setNoCache(final boolean flag) {
         noCacheFlag = flag;
-        return this;
     }
 
-    public SuttonCacheController setNoStore(final boolean flag) {
+    public void setNoStore(final boolean flag) {
         noStoreFlag = flag;
-        return this;
     }
 
-    public SuttonCacheController setNoTransform(final boolean flag) {
+    public void setNoTransform(final boolean flag) {
         noTransformFlag = flag;
-        return this;
     }
 
-    public SuttonCacheController setMustRevalidate(final boolean flag) {
+    public void setMustRevalidate(final boolean flag) {
         mustRevalidateFlag = flag;
-        return this;
     }
 
-    public SuttonCacheController setProxyRevalidate(final boolean flag) {
+    public void setProxyRevalidate(final boolean flag) {
         proxyRevalidate = flag;
-        return this;
     }
 
-    public SuttonCacheController setMaxAge(final int maxAge) {
+    public void setMaxAge(final int maxAge) {
         this.maxAge = maxAge;
-        return this;
     }
 }

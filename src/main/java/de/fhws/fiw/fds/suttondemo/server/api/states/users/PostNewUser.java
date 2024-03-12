@@ -6,7 +6,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.security.AuthenticationProvider;
 
-public class PostNewUser<R> extends AbstractPostState<User, R> {
+public class PostNewUser<R> extends AbstractPostState<R, User> {
 
     public PostNewUser(Builder<R> builder) {
         super(builder);
@@ -28,7 +28,7 @@ public class PostNewUser<R> extends AbstractPostState<User, R> {
 
     }
 
-    public static class Builder<R> extends AbstractPostStateBuilder<User, R> {
+    public static class Builder<R> extends AbstractPostStateBuilder<R, User> {
 
         @Override
         public PostNewUser<R> build() {

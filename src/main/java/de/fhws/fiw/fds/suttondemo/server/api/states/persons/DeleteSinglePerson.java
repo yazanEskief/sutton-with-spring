@@ -23,7 +23,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
 
-public class DeleteSinglePerson<R> extends AbstractDeleteState<Person, R> {
+public class DeleteSinglePerson<R> extends AbstractDeleteState<R, Person> {
 
     public DeleteSinglePerson(final Builder<R> builder) {
         super(builder);

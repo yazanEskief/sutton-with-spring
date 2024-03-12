@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.Collection;
 
@@ -23,10 +24,10 @@ public class UserSpringService extends AbstractSpringService {
     }
 
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Collection<User>> getAllUsers() {
+    public ResponseEntity<Collection<User>> getAllUsers(WebRequest request) {
         return new GetAllUsers.Builder<ResponseEntity<Collection<User>>>()
                 .setQuery(new GetAllUsers.AllUsers<>())
-                .setSuttonRequest(new SpringRequest(this.httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonResponse(new SpringResponse<>())
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
                 .setSuttonServletRequest(new SpringServletRequest(this.httpServletRequest))
@@ -35,10 +36,10 @@ public class UserSpringService extends AbstractSpringService {
     }
 
     @GetMapping(value = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<User> getUserById(@PathVariable final long userId) {
+    public ResponseEntity<User> getUserById(@PathVariable final long userId, WebRequest request) {
         return new GetUserById.Builder<ResponseEntity<User>>()
                 .setRequestedId(userId)
-                .setSuttonRequest(new SpringRequest(this.httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonResponse(new SpringResponse<>())
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
                 .setSuttonServletRequest(new SpringServletRequest(this.httpServletRequest))
@@ -47,10 +48,10 @@ public class UserSpringService extends AbstractSpringService {
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Void> postNewUser(@RequestBody final User newUser) {
+    public ResponseEntity<Void> postNewUser(@RequestBody final User newUser, WebRequest request) {
         return new PostNewUser.Builder<ResponseEntity<Void>>()
                 .setModelToCreate(newUser)
-                .setSuttonRequest(new SpringRequest(this.httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonResponse(new SpringResponse<>())
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
                 .setSuttonServletRequest(new SpringServletRequest(this.httpServletRequest))
@@ -59,11 +60,13 @@ public class UserSpringService extends AbstractSpringService {
     }
 
     @PutMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Void> putUser(@PathVariable final long userId, @RequestBody final User updatedUser) {
+    public ResponseEntity<Void> putUser(@PathVariable final long userId,
+                                        @RequestBody final User updatedUser,
+                                        WebRequest request) {
         return new PutUser.Builder<ResponseEntity<Void>>()
                 .setRequestedId(userId)
                 .setModelToUpdate(updatedUser)
-                .setSuttonRequest(new SpringRequest(this.httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonResponse(new SpringResponse<>())
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
                 .setSuttonServletRequest(new SpringServletRequest(this.httpServletRequest))
@@ -72,10 +75,10 @@ public class UserSpringService extends AbstractSpringService {
     }
 
     @DeleteMapping(value = "/{userId}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable final long userId) {
+    public ResponseEntity<Void> deleteUserById(@PathVariable final long userId, WebRequest request) {
         return new DeleteUser.Builder<ResponseEntity<Void>>()
                 .setRequestedId(userId)
-                .setSuttonRequest(new SpringRequest(this.httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonResponse(new SpringResponse<>())
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
                 .setSuttonServletRequest(new SpringServletRequest(this.httpServletRequest))

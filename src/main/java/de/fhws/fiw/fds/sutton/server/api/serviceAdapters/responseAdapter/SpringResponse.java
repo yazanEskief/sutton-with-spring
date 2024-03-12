@@ -8,6 +8,13 @@ import org.springframework.http.ResponseEntity;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The {@link SpringResponse} class is an implementation of the {@link SuttonResponse} interface
+ * tailored for the Spring framework. It facilitates the creation and configuration of HTTP responses
+ * using Spring's {@link ResponseEntity}.
+ *
+ * @param <T> The type of the entity to be sent in the HTTP response body.
+ */
 public class SpringResponse<T> implements SuttonResponse<ResponseEntity<T>, T> {
 
     private Status status;
@@ -20,6 +27,9 @@ public class SpringResponse<T> implements SuttonResponse<ResponseEntity<T>, T> {
 
     private String eTag;
 
+    /**
+     * Constructs a {@link SpringResponse} with default values.
+     */
     public SpringResponse() {
         this.body = null;
         this.status = Status.OK;
@@ -98,9 +108,16 @@ public class SpringResponse<T> implements SuttonResponse<ResponseEntity<T>, T> {
     @Override
     public SpringResponse<T> header(final String headerName, final Object headerValue) {
         this.headers.add(headerName, headerValue.toString());
-        return null;
+        return this;
     }
 
+    /**
+     * Generates a string representation of a link header.
+     *
+     * @param uri The URI representing the href of the hyperlink.
+     * @param rel The relation type of the hyperlink.
+     * @return A string representing the link header.
+     */
     private static String linkHeader(final String uri, final String rel) {
         final StringBuilder sb = new StringBuilder();
         sb.append('<').append(uri).append(">;");

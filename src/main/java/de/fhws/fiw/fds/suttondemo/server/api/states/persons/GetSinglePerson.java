@@ -27,7 +27,7 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
 import de.fhws.fiw.fds.suttondemo.server.api.states.person_locations.PersonLocationRelTypes;
 import de.fhws.fiw.fds.suttondemo.server.api.states.person_locations.PersonLocationUri;
 
-public class GetSinglePerson<R> extends AbstractGetState<Person, R> {
+public class GetSinglePerson<R> extends AbstractGetState<R, Person> {
 
     public GetSinglePerson(final Builder<R> builder) {
         super(builder);
@@ -44,8 +44,7 @@ public class GetSinglePerson<R> extends AbstractGetState<Person, R> {
 
     @Override
     protected boolean clientKnowsCurrentModelState(AbstractModel modelFromDatabase) {
-        final String eTagOfModel = EtagGenerator.createEtag(modelFromDatabase);
-        return this.suttonRequest.clientKnowsCurrentModel(eTagOfModel);
+        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
     }
 
     @Override

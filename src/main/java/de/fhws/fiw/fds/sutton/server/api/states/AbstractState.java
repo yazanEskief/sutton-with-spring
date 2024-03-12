@@ -29,6 +29,9 @@ import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.uriInfoAdapter.SuttonUr
  * <p>The AbstractState class defines the basic requirements each extending state class needs to define a proper workflow.</p>
  *
  * <p>Each extending state class has to define a builder class, which must extend {@link AbstractState.AbstractStateBuilder}.</p>
+ *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  */
 public abstract class AbstractState<R, T> {
 

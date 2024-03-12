@@ -30,8 +30,10 @@ import java.net.URI;
  *
  * <p>Each extending state class has to define a builder class, which must extend
  * {@link AbstractPutState.AbstractPutStateBuilder}</p>
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity sent in the HTTP request to perform an update process.
  */
-public abstract class AbstractPutState<T extends AbstractModel, R> extends AbstractState<R, Void> {
+public abstract class AbstractPutState<R, T extends AbstractModel> extends AbstractState<R, Void> {
 
     /**
      * The updated model {@link AbstractModel} to save in the database
@@ -58,7 +60,7 @@ public abstract class AbstractPutState<T extends AbstractModel, R> extends Abstr
      */
     protected NoContentResult resultAfterUpdate;
 
-    protected AbstractPutState(final AbstractPutStateBuilder<T, R> builder) {
+    protected AbstractPutState(final AbstractPutStateBuilder<R, T> builder) {
         super(builder);
         this.requestedId = builder.requestedId;
         this.modelToUpdate = builder.modelToUpdate;
@@ -164,18 +166,18 @@ public abstract class AbstractPutState<T extends AbstractModel, R> extends Abstr
         this.suttonResponse.link(self, "self");
     }
 
-    public static abstract class AbstractPutStateBuilder<T extends AbstractModel, R>
+    public static abstract class AbstractPutStateBuilder<R, T extends AbstractModel>
             extends AbstractState.AbstractStateBuilder<R, Void> {
         protected long requestedId;
 
         protected T modelToUpdate;
 
-        public AbstractPutStateBuilder<T, R> setRequestedId(final long requestedId) {
+        public AbstractPutStateBuilder<R, T> setRequestedId(final long requestedId) {
             this.requestedId = requestedId;
             return this;
         }
 
-        public AbstractPutStateBuilder<T, R> setModelToUpdate(final T modelToUpdate) {
+        public AbstractPutStateBuilder<R, T> setModelToUpdate(final T modelToUpdate) {
             this.modelToUpdate = modelToUpdate;
             return this;
         }

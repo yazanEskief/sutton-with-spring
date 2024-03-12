@@ -22,7 +22,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
 
-public class PostNewPerson<R> extends AbstractPostState<Person, R> {
+public class PostNewPerson<R> extends AbstractPostState<R, Person> {
 
     public PostNewPerson(final Builder<R> builder) {
         super(builder);
@@ -42,7 +42,7 @@ public class PostNewPerson<R> extends AbstractPostState<Person, R> {
 
     }
 
-    public static class Builder<R> extends AbstractPostStateBuilder<Person, R> {
+    public static class Builder<R> extends AbstractPostStateBuilder<R, Person> {
         @Override
         public AbstractState<R, Void> build() {
             return new PostNewPerson<>(this);

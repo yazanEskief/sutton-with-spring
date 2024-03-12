@@ -27,7 +27,8 @@ import java.net.URI;
  * basic requirements to implement a dispatcher state as introduced in the REST architecture.</p>
  *
  * <p>Extending state class has to define a builder class, which must extend
- * * {@link AbstractGetDispatcherState.AbstractDispatcherStateBuilder}.</p>
+ * {@link AbstractGetDispatcherState.AbstractDispatcherStateBuilder}.</p>
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
  */
 public abstract class AbstractGetDispatcherState<R> extends AbstractState<R, Void> {
 

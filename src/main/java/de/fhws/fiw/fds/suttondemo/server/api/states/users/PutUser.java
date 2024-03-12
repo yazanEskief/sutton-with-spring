@@ -1,7 +1,6 @@
 package de.fhws.fiw.fds.suttondemo.server.api.states.users;
 
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
-import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
 import de.fhws.fiw.fds.sutton.server.api.security.User;
 import de.fhws.fiw.fds.sutton.server.api.states.put.AbstractPutState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
@@ -10,7 +9,7 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.security.AuthenticationProvider;
 
-public class PutUser<R> extends AbstractPutState<User, R> {
+public class PutUser<R> extends AbstractPutState<R, User> {
 
     public PutUser(Builder<R> builder) {
         super(builder);
@@ -24,8 +23,7 @@ public class PutUser<R> extends AbstractPutState<User, R> {
 
     @Override
     protected boolean clientDoesNotKnowCurrentModelState(AbstractModel modelFromDatabase) {
-        final String modelFromDatabaseETag = EtagGenerator.createEtag(modelFromDatabase);
-        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabaseETag);
+        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class PutUser<R> extends AbstractPutState<User, R> {
         addLink(UserUri.REL_PATH_ID, UserRelTypes.GET_USER_BY_ID, getAcceptRequestHeader(), this.modelToUpdate.getId());
     }
 
-    public static class Builder<R> extends AbstractPutStateBuilder<User, R> {
+    public static class Builder<R> extends AbstractPutStateBuilder<R, User> {
 
         @Override
         public PutUser<R> build() {

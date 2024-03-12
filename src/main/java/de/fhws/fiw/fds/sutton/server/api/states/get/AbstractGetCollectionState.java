@@ -32,8 +32,10 @@ import java.util.Collection;
  *
  * <p>Each extending state class has to define a builder class, which must extend
  * {@link AbstractGetCollectionState.AbstractGetCollectionStateBuilder}.</p>
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity encapsulated within the body of the HTTP response.
  */
-public abstract class AbstractGetCollectionState<T extends AbstractModel, R> extends AbstractState<R, Collection<T>> {
+public abstract class AbstractGetCollectionState<R, T extends AbstractModel> extends AbstractState<R, Collection<T>> {
 
     /**
      * The header name {@link String} of the total number of results found in the database to be sent in
@@ -50,7 +52,7 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
      * The query {@link AbstractQuery} to be used to fetch the resources from the database and to set the paging
      * behavior
      */
-    protected AbstractQuery<T, R> query;
+    protected AbstractQuery<R, T> query;
 
     /**
      * the collection {@link CollectionModelResult} of the requested resources to be sent to the client
@@ -59,7 +61,7 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
 
     protected SuttonAnnotationsProcessor suttonAnnotationsProcessor = new SuttonAnnotationsProcessor(this.uriInfo);
 
-    protected AbstractGetCollectionState(final AbstractGetCollectionStateBuilder<T, R> builder) {
+    protected AbstractGetCollectionState(final AbstractGetCollectionStateBuilder<R, T> builder) {
         super(builder);
         this.query = builder.query;
     }
@@ -67,6 +69,8 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
     @Override
     protected R buildInternal() {
         configureState();
+
+        addAnnotations();
 
         authorizeRequest();
 
@@ -120,7 +124,6 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
      * Extending classes should use this method to set the body of the response.
      */
     protected void defineHttpResponseBody() {
-        addAnnotations();
         Collection<T> entityCollection = this.result.getResult();
         entityCollection.forEach(suttonAnnotationsProcessor::processSuttonAnnotations);
         this.suttonResponse.entity(entityCollection);
@@ -159,11 +162,11 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
         return new PagingContext<>(this.uriInfo, this.suttonResponse, getAcceptRequestHeader());
     }
 
-    public static abstract class AbstractGetCollectionStateBuilder<T extends AbstractModel, R>
+    public static abstract class AbstractGetCollectionStateBuilder<R, T extends AbstractModel>
             extends AbstractStateBuilder<R, Collection<T>> {
-        protected AbstractQuery<T, R> query;
+        protected AbstractQuery<R, T> query;
 
-        public AbstractGetCollectionStateBuilder<T, R> setQuery(final AbstractQuery<T, R> query) {
+        public AbstractGetCollectionStateBuilder<R, T> setQuery(final AbstractQuery<R, T> query) {
             this.query = query;
             return this;
         }

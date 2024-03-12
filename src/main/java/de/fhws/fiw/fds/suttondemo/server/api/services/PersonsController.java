@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.Collection;
 
@@ -34,13 +35,14 @@ public class PersonsController extends AbstractSpringService {
             @RequestParam(name = "lastname", defaultValue = "") final String lastName,
             @RequestParam(name = "offset", defaultValue = "0") final int offset,
             @RequestParam(name = "size", defaultValue = "20") final int size,
-            @RequestParam(name = "wait", defaultValue = "0") final int waitingTime
+            @RequestParam(name = "wait", defaultValue = "0") final int waitingTime,
+            WebRequest request
     ) {
         return new GetAllPersons.Builder<ResponseEntity<Collection<Person>>>()
                 .setQuery(new QueryByFirstAndLastName<>(firstName, lastName, offset, size, waitingTime))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
                 .execute();
@@ -48,12 +50,13 @@ public class PersonsController extends AbstractSpringService {
 
     @GetMapping(value = "/{personId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Person> getPersonById(
-            @PathVariable final long personId
+            @PathVariable final long personId,
+            WebRequest request
     ) {
         return new GetSinglePerson.Builder<ResponseEntity<Person>>()
                 .setRequestedId(personId)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -62,12 +65,13 @@ public class PersonsController extends AbstractSpringService {
 
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Void> createSinglePerson(
-            @RequestBody final Person personModel
+            @RequestBody final Person personModel,
+            WebRequest request
     ) {
         return new PostNewPerson.Builder<ResponseEntity<Void>>()
                 .setModelToCreate(personModel)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -77,13 +81,14 @@ public class PersonsController extends AbstractSpringService {
     @PutMapping(value = "/{personId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Void> updateSinglePerson(
             @PathVariable final long personId,
-            @RequestBody final Person personModel
+            @RequestBody final Person personModel,
+            WebRequest request
     ) {
         return new PutSinglePerson.Builder<ResponseEntity<Void>>()
                 .setRequestedId(personId)
                 .setModelToUpdate(personModel)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -92,12 +97,13 @@ public class PersonsController extends AbstractSpringService {
 
     @DeleteMapping(value = "/{personId}")
     public ResponseEntity<?> deleteSinglePerson(
-            @PathVariable final long personId
+            @PathVariable final long personId,
+            WebRequest request
     ) {
         return new DeleteSinglePerson.Builder<ResponseEntity<Void>>()
                 .setRequestedId(personId)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -111,12 +117,13 @@ public class PersonsController extends AbstractSpringService {
             @RequestParam(name = "cityname", defaultValue = "") final String cityName,
             @RequestParam(name = "offset", defaultValue = "0") int offset,
             @RequestParam(name = "size", defaultValue = "20") int size,
-            @RequestParam(name = "wait", defaultValue = "0") int waitingTime) {
+            @RequestParam(name = "wait", defaultValue = "0") int waitingTime,
+            WebRequest request) {
         return new GetAllLocationsOfPerson.Builder<ResponseEntity<Collection<Location>>>()
                 .setParentId(personId)
                 .setQuery(new QueryByLocationName<>(personId, cityName, offset, size, waitingTime))
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -127,12 +134,14 @@ public class PersonsController extends AbstractSpringService {
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Location> getLocationByIdOfPerson(
             @PathVariable final long personId,
-            @PathVariable final long locationId) {
+            @PathVariable final long locationId,
+            WebRequest request
+            ) {
         return new GetSingleLocationOfPerson.Builder<ResponseEntity<Location>>()
                 .setParentId(personId)
                 .setRequestedId(locationId)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -142,12 +151,13 @@ public class PersonsController extends AbstractSpringService {
     @PostMapping(value = "/{personId}/locations", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Void> createNewLocationOfPerson(
             @PathVariable final long personId,
-            @RequestBody final Location location) {
+            @RequestBody final Location location,
+            WebRequest request) {
         return new PostNewLocationOfPerson.Builder<ResponseEntity<Void>>()
                 .setParentId(personId)
                 .setModelToCreate(location)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -159,13 +169,14 @@ public class PersonsController extends AbstractSpringService {
     public ResponseEntity<Void> updateNewLocationOfPerson(
             @PathVariable final long personId,
             @PathVariable final long locationId,
-            @RequestBody final Location location) {
+            @RequestBody final Location location,
+            WebRequest request) {
         return new PutSingleLocationOfPerson.Builder<ResponseEntity<Void>>()
                 .setParentId(personId)
                 .setRequestedId(locationId)
                 .setModelToUpdate(location)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()
@@ -175,12 +186,13 @@ public class PersonsController extends AbstractSpringService {
     @DeleteMapping(value = "{personId}/locations/{locationId}")
     public ResponseEntity<Void> deleteLocationOfPerson(
             @PathVariable final long personId,
-            @PathVariable final long locationId) {
+            @PathVariable final long locationId,
+            WebRequest request) {
         return new DeleteSingleLocationOfPerson.Builder<ResponseEntity<Void>>()
                 .setParentId(personId)
                 .setRequestedId(locationId)
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
+                .setSuttonRequest(new SpringRequest(request))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
                 .build()

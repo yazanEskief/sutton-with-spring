@@ -7,7 +7,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 
-public class DeleteSingleLocationOfPerson<R> extends AbstractDeleteRelationState<Location, R> {
+public class DeleteSingleLocationOfPerson<R> extends AbstractDeleteRelationState<R, Location> {
 
     public DeleteSingleLocationOfPerson(final Builder<R> builder) {
         super(builder);

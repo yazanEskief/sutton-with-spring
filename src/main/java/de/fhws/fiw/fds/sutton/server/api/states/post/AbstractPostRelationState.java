@@ -10,24 +10,26 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
  * <p>Each extending state class has to define a builder class, which must extend
  * {@link AbstractPostRelationState.AbstractPostRelationStateBuilder}</p>
  *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity sent in the HTTP request to be created.
  * @see AbstractPostState
  */
-public abstract class AbstractPostRelationState<T extends AbstractModel, R> extends AbstractPostState<T, R> {
+public abstract class AbstractPostRelationState<R, T extends AbstractModel> extends AbstractPostState<R, T> {
     /**
      * id {@link Long} of the primary resource
      */
     protected long primaryId;
 
-    public AbstractPostRelationState(final AbstractPostRelationStateBuilder<T, R> builder) {
+    public AbstractPostRelationState(final AbstractPostRelationStateBuilder<R, T> builder) {
         super(builder);
         this.primaryId = builder.parentId;
     }
 
-    public static abstract class AbstractPostRelationStateBuilder<T extends AbstractModel, R>
-            extends AbstractPostStateBuilder<T, R> {
+    public static abstract class AbstractPostRelationStateBuilder<R, T extends AbstractModel>
+            extends AbstractPostStateBuilder<R, T> {
         protected long parentId;
 
-        public AbstractPostRelationStateBuilder<T, R> setParentId(final long parentId) {
+        public AbstractPostRelationStateBuilder<R, T> setParentId(final long parentId) {
             this.parentId = parentId;
             return this;
         }

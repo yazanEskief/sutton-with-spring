@@ -9,9 +9,11 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
  * <p>Each extending state class has to define a builder class, which must extend
  * {@link AbstractDeleteRelationState.AbstractDeleteRelationStateBuilder}</p>
  *
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity to be deleted.
  * @see AbstractDeleteState
  */
-public abstract class AbstractDeleteRelationState<T extends AbstractModel, R> extends AbstractDeleteState<T, R> {
+public abstract class AbstractDeleteRelationState<R, T extends AbstractModel> extends AbstractDeleteState<R, T> {
 
     /**
      * id {@link Long} of the main resource

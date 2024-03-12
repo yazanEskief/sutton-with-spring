@@ -29,8 +29,10 @@ import java.net.URI;
  *
  * <p>Each extending state class has to define a builder class, which must extend
  * {@link AbstractPostState.AbstractPostStateBuilder}</p>
+ * @param <R> The type of the HTTP response object specific to the REST framework in use.
+ * @param <T> The type of the entity sent in the HTTP request to be created.
  */
-public abstract class AbstractPostState<T extends AbstractModel, R> extends AbstractState<R, Void> {
+public abstract class AbstractPostState<R, T extends AbstractModel> extends AbstractState<R, Void> {
 
     /**
      * The model {@link AbstractModel} sent in the request to be created
@@ -42,7 +44,7 @@ public abstract class AbstractPostState<T extends AbstractModel, R> extends Abst
      */
     protected NoContentResult resultAfterSave;
 
-    protected AbstractPostState(final AbstractPostStateBuilder<T, R> builder) {
+    protected AbstractPostState(final AbstractPostStateBuilder<R, T> builder) {
         super(builder);
         this.modelToStore = builder.modelToCreate;
     }
@@ -98,11 +100,11 @@ public abstract class AbstractPostState<T extends AbstractModel, R> extends Abst
         this.suttonResponse.location(location);
     }
 
-    public static abstract class AbstractPostStateBuilder<T extends AbstractModel, R>
+    public static abstract class AbstractPostStateBuilder<R, T extends AbstractModel>
             extends AbstractState.AbstractStateBuilder<R, Void> {
         protected T modelToCreate;
 
-        public AbstractPostStateBuilder<T, R> setModelToCreate(final T modelToCreate) {
+        public AbstractPostStateBuilder<R, T> setModelToCreate(final T modelToCreate) {
             this.modelToCreate = modelToCreate;
             return this;
         }

@@ -17,7 +17,6 @@
 package de.fhws.fiw.fds.suttondemo.server.api.states.persons;
 
 import de.fhws.fiw.fds.sutton.server.api.caching.CachingUtils;
-import de.fhws.fiw.fds.sutton.server.api.caching.EtagGenerator;
 import de.fhws.fiw.fds.sutton.server.api.states.AbstractState;
 import de.fhws.fiw.fds.sutton.server.api.states.put.AbstractPutState;
 import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
@@ -26,7 +25,7 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
 
-public class PutSinglePerson<R> extends AbstractPutState<Person, R> {
+public class PutSinglePerson<R> extends AbstractPutState<R, Person> {
 
     public PutSinglePerson(final Builder<R> builder) {
         super(builder);
@@ -48,8 +47,7 @@ public class PutSinglePerson<R> extends AbstractPutState<Person, R> {
 
     @Override
     protected boolean clientDoesNotKnowCurrentModelState(AbstractModel modelFromDatabase) {
-        final String eTagOfModel = EtagGenerator.createEtag(modelFromDatabase);
-        return this.suttonRequest.clientKnowsCurrentModel(eTagOfModel);
+        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class PutSinglePerson<R> extends AbstractPutState<Person, R> {
                 this.modelToUpdate.getId());
     }
 
-    public static class Builder<R> extends AbstractPutStateBuilder<Person, R> {
+    public static class Builder<R> extends AbstractPutStateBuilder<R, Person> {
         @Override
         public AbstractState<R, Void> build() {
             return new PutSinglePerson<>(this);

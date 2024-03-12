@@ -7,7 +7,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.SingleModelResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.security.AuthenticationProvider;
 
-public class DeleteUser<R> extends AbstractDeleteState<User, R> {
+public class DeleteUser<R> extends AbstractDeleteState<R, User> {
 
     public DeleteUser(Builder<R> builder) {
         super(builder);

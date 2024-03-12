@@ -1,5 +1,10 @@
 package de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter;
 
+/**
+ * Commonly used status codes defined by HTTP, see
+ * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10">HTTP/1.1 documentation</a> for the complete
+ * list.
+ */
 public enum Status {
 
     /**

@@ -8,7 +8,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 
-public class QueryByLocationName<R> extends AbstractRelationQuery<Location, R> {
+public class QueryByLocationName<R> extends AbstractRelationQuery<R, Location> {
 
     private String cityName;
 

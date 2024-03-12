@@ -9,7 +9,7 @@ import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 import de.fhws.fiw.fds.suttondemo.server.api.states.persons.PersonRelTypes;
 import de.fhws.fiw.fds.suttondemo.server.api.states.persons.PersonUri;
 
-public class DeleteSingleLocation<R> extends AbstractDeleteState<Location, R> {
+public class DeleteSingleLocation<R> extends AbstractDeleteState<R, Location> {
 
     public DeleteSingleLocation( final Builder<R> builder )
     {

@@ -28,7 +28,6 @@ public class DispatcherController extends AbstractSpringService {
         return new GetDispatcher.Builder<ResponseEntity<Void>>()
                 .setUriInfo(new SpringUriInfoAdapter(this.httpServletRequest))
                 .setSuttonResponse(new SpringResponse<>())
-                .setSuttonRequest(new SpringRequest(httpServletRequest))
                 .setSuttonServletRequest(new SpringServletRequest(httpServletRequest))
                 .build()
                 .execute();

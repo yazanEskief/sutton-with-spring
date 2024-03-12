@@ -7,8 +7,17 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 
 import java.lang.reflect.Field;
 
-public class SelfLinkProcessor extends SuttonAnnotation {
+/**
+ * The {@link SelfLinkProcessor} class is a subclass of the {@link Processor} class
+ * and is responsible for processing the {@link SelfLink} annotation.
+ */
+public class SelfLinkProcessor extends Processor {
 
+    /**
+     * Constructs a {@link SelfLinkProcessor} with the specified {@link SuttonUriInfo}.
+     *
+     * @param uriInfo The {@link SuttonUriInfo} providing the context for hyperlink creation.
+     */
     public SelfLinkProcessor(SuttonUriInfo uriInfo) {
         super(uriInfo);
     }
@@ -43,19 +52,27 @@ public class SelfLinkProcessor extends SuttonAnnotation {
         }
     }
 
+    /**
+     * Creates and sets the {@code href} attribute of the hyperlink based on the
+     * {@link SelfLink} annotation and the resource model instance.
+     *
+     * @param link         The {@link SelfLink} annotation instance.
+     * @param linkToInject The {@link Link} object where the {@code href} will be set.
+     * @param model        The resource model instance to be processed.
+     */
     private void setHref(SelfLink link, Link linkToInject, final AbstractModel model) {
-        final String resourceName = !link.name().isEmpty() ? link.name() : getResourceName(model);
-        final long modelId = model.getId();
-        String relativeHref = resourceName + "/" + modelId;
+        String relativeHref = link.pathElement() + "/" + model.getId();
         String href = createHref(link.style(), relativeHref);
         linkToInject.setHref(href);
     }
 
-    private String getResourceName(final AbstractModel model) {
-        final String name = model.getClass().getSimpleName();
-        return name.substring(0, 1).toLowerCase() + name.substring(1) + "s";
-    }
-
+    /**
+     * Checks whether the resource model instance has a primary resource associated with it,
+     * indicating that it is being used in the context of a secondary resource.
+     *
+     * @param model The resource model instance to be checked.
+     * @return {@code true} if the model has a primary resource; {@code false} otherwise.
+     */
     private boolean hasPrimaryResource(final AbstractModel model) {
         return model.getPrimaryId() != 0;
     }

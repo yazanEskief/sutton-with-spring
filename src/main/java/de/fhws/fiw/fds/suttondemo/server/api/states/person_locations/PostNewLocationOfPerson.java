@@ -6,7 +6,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.NoContentResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 
-public class PostNewLocationOfPerson<R> extends AbstractPostRelationState<Location, R> {
+public class PostNewLocationOfPerson<R> extends AbstractPostRelationState<R, Location> {
 
     public PostNewLocationOfPerson( final Builder<R> builder )
     {
@@ -28,7 +28,7 @@ public class PostNewLocationOfPerson<R> extends AbstractPostRelationState<Locati
 
     }
 
-    public static class Builder<R> extends AbstractPostRelationStateBuilder<Location, R>
+    public static class Builder<R> extends AbstractPostRelationStateBuilder<R, Location>
     {
         @Override public AbstractState<R, Void> build( )
         {

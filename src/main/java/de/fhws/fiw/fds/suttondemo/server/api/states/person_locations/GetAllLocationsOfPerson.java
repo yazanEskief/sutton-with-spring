@@ -7,7 +7,7 @@ import de.fhws.fiw.fds.suttondemo.server.api.queries.QueryByLocationName;
 
 import java.util.Collection;
 
-public class GetAllLocationsOfPerson<R> extends AbstractGetCollectionRelationState<Location, R> {
+public class GetAllLocationsOfPerson<R> extends AbstractGetCollectionRelationState<R, Location> {
     public GetAllLocationsOfPerson(final Builder<R> builder) {
         super(builder);
     }
@@ -39,10 +39,10 @@ public class GetAllLocationsOfPerson<R> extends AbstractGetCollectionRelationSta
 
     }
 
-    public static class Builder<R> extends AbstractGetCollectionRelationStateBuilder<Location, R> {
+    public static class Builder<R> extends AbstractGetCollectionRelationStateBuilder<R, Location> {
         @Override
         public AbstractState<R, Collection<Location>> build() {
-            return new GetAllLocationsOfPerson<R>(this);
+            return new GetAllLocationsOfPerson<>(this);
         }
     }
 }

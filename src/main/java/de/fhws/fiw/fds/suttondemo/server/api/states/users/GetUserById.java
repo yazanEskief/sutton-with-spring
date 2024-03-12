@@ -9,7 +9,7 @@ import de.fhws.fiw.fds.sutton.server.models.AbstractModel;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.security.AuthenticationProvider;
 
-public class GetUserById<R> extends AbstractGetState<User, R> {
+public class GetUserById<R> extends AbstractGetState<R, User> {
 
     public GetUserById(Builder<R> builder) {
         super(builder);
@@ -23,8 +23,7 @@ public class GetUserById<R> extends AbstractGetState<User, R> {
 
     @Override
     protected boolean clientKnowsCurrentModelState(AbstractModel modelFromDatabase) {
-        final String modelFromDatabaseETag = EtagGenerator.createEtag(modelFromDatabase);
-        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabaseETag);
+        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
     }
 
     @Override

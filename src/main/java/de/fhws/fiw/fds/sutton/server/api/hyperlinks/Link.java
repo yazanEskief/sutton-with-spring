@@ -1,5 +1,9 @@
 package de.fhws.fiw.fds.sutton.server.api.hyperlinks;
 
+/**
+ * The {@link Link} class represents a hypermedia link. It encapsulates the href, rel,
+ * and type attributes that define the characteristics of a hyperlink.
+ */
 public class Link {
 
     private String href;
@@ -8,9 +12,19 @@ public class Link {
 
     private String type;
 
+    /**
+     * Constructs an empty {@link Link} object.
+     */
     public Link() {
     }
 
+    /**
+     * Constructs a {@link Link} object with the specified href, rel, and type attributes.
+     *
+     * @param href The URL that the link points to.
+     * @param rel  The relationship type of the link.
+     * @param type The media type of the link target.
+     */
     public Link(String href, String rel, String type) {
         this.href = href;
         this.rel = rel;

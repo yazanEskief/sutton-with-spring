@@ -22,7 +22,7 @@ import de.fhws.fiw.fds.sutton.server.database.results.CollectionModelResult;
 import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Person;
 
-public class QueryByFirstAndLastName<R> extends AbstractQuery<Person, R> {
+public class QueryByFirstAndLastName<R> extends AbstractQuery<R, Person> {
 
     private String firstName;
     private String lastName;
@@ -33,7 +33,7 @@ public class QueryByFirstAndLastName<R> extends AbstractQuery<Person, R> {
         this.firstName = firstName;
         this.lastName = lastName;
         this.waitingTime = waitingTime;
-        this.pagingBehavior = new PagingBehaviorUsingOffsetSize<Person, R>(offset, size);
+        this.pagingBehavior = new PagingBehaviorUsingOffsetSize<R, Person>(offset, size);
     }
 
     public String getFirstName() {

@@ -10,7 +10,7 @@ import de.fhws.fiw.fds.suttondemo.server.DaoFactory;
 import de.fhws.fiw.fds.suttondemo.server.api.models.Location;
 import de.fhws.fiw.fds.suttondemo.server.api.states.persons.PersonUri;
 
-public class GetSingleLocation<R> extends AbstractGetState<Location, R> {
+public class GetSingleLocation<R> extends AbstractGetState<R, Location> {
 
     public GetSingleLocation( final Builder<R> builder )
     {
@@ -29,8 +29,7 @@ public class GetSingleLocation<R> extends AbstractGetState<Location, R> {
 
     @Override
     protected boolean clientKnowsCurrentModelState(AbstractModel modelFromDatabase) {
-        final String eTagOfModel = EtagGenerator.createEtag(modelFromDatabase);
-        return this.suttonRequest.clientKnowsCurrentModel(eTagOfModel);
+        return this.suttonRequest.clientKnowsCurrentModel(modelFromDatabase);
     }
 
     @Override

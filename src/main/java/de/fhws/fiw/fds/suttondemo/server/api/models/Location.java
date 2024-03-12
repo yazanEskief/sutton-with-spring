@@ -23,10 +23,15 @@ public class Location extends AbstractModel {
 
     private LocalDate visitedOn;
 
-    @SecondarySelfLink(PrimaryResourceName = "persons")
+    @SecondarySelfLink(
+            primaryPathElement = "persons",
+            secondaryPathElement = "locations"
+    )
     private transient Link selfLinkOnSecond;
 
-    @SelfLink
+    @SelfLink(
+            pathElement = "locations"
+    )
     private transient Link selfLinkPrimary;
 
     public Location() {
